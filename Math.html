@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Impact of Social Media on Teen Anxiety | School Portfolio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* --- CSS STYLES (Adapted for Academic Theme) --- */
+        :root {
+            --primary-color: #00796B; /* Teal - Professional & calm */
+            --secondary-color: #004D40; /* Dark Teal */
+            --accent-color: #FF8A65; /* Coral/Orange for emphasis */
+            --text-color: #333;
+            --light-text: #607D8B; /* Blue Gray */
+            --background-color: #F8F9FA;
+            --white: #fff;
+            --spacing-large: 60px;
+            --spacing-medium: 30px;
+            --spacing-small: 15px;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.65;
+            color: var(--text-color);
+            background-color: var(--background-color);
+            padding-top: 60px;
+        }
+
+        .container {
+            width: 90%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        /* --- Utility & Components --- */
+        .back-link {
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 15px 30px;
+            background-color: var(--white);
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+            transition: color 0.2s;
+        }
+        .back-link:hover {
+            color: var(--accent-color);
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 12px 25px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .primary-btn {
+            background-color: var(--primary-color);
+            color: var(--white);
+            border: 2px solid var(--primary-color);
+        }
+
+        .primary-btn:hover {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
+            transform: translateY(-2px);
+        }
+
+        .secondary-btn {
+            background-color: var(--white);
+            color: var(--primary-color);
+            border: 2px solid var(--primary-color);
+        }
+
+        .secondary-btn:hover {
+            background-color: var(--primary-color);
+            color: var(--white);
+            transform: translateY(-2px);
+        }
+
+
+        /* --- Header Section --- */
+        .project-header {
+            background-color: var(--white);
+            padding: var(--spacing-large) 0;
+            text-align: center;
+            border-bottom: 5px solid var(--accent-color);
+            margin-bottom: var(--spacing-medium);
+        }
+
+        .project-header h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            color: var(--secondary-color);
+            font-weight: 700;
+        }
+
+        .tagline {
+            font-size: 1.2em;
+            color: var(--light-text);
+            margin-bottom: var(--spacing-medium);
+        }
+
+        .project-meta {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: var(--spacing-large);
+            font-size: 1em;
+            color: var(--light-text);
+            padding: 10px 0;
+            border-top: 1px solid #eee;
+            border-bottom: 1px solid #eee;
+        }
+
+        .project-meta strong {
+            color: var(--text-color);
+            font-weight: 600;
+        }
+
+        .project-hero-image img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 12px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.15);
+            margin-bottom: var(--spacing-medium);
+        }
+
+        .project-links {
+            margin-top: var(--spacing-medium);
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        /* --- Main Content Sections --- */
+        #project-content {
+            padding: var(--spacing-medium) 0 var(--spacing-large) 0;
+        }
+
+        .section-block {
+            margin-bottom: var(--spacing-large);
+            padding: var(--spacing-medium);
+            background-color: var(--white);
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .section-block h2 {
+            color: var(--secondary-color);
+            margin-bottom: var(--spacing-medium);
+            font-size: 2em;
+            font-weight: 700;
+            padding-bottom: 5px;
+        }
+
+        .process-step {
+            margin-top: var(--spacing-medium);
+            padding-left: var(--spacing-small);
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .process-step h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        /* Reflection Section Specific Styling */
+        .reflection-section {
+            background-color: #E0F2F1; /* Lighter shade of primary color */
+            border: 2px solid var(--primary-color);
+        }
+
+        .reflection-section ul {
+            list-style: none;
+            padding-left: 0;
+            margin-top: var(--spacing-small);
+        }
+
+        .reflection-section li {
+            margin-bottom: 15px;
+            padding: 20px;
+            background-color: var(--white);
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+            line-height: 1.5;
+        }
+        .reflection-section li strong {
+            color: var(--secondary-color);
+            display: block;
+            margin-bottom: 5px;
+            font-size: 1.1em;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: var(--spacing-small) 0;
+            background-color: var(--secondary-color);
+            color: #C8E6C9;
+            font-size: 0.9em;
+        }
+
+        /* --- Responsiveness --- */
+        @media (max-width: 768px) {
+            .project-header h1 {
+                font-size: 2.2em;
+            }
+            .project-meta {
+                flex-direction: column;
+                gap: 10px;
+            }
+            .project-links {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .btn {
+                margin: 0;
+            }
+            body {
+                padding-top: 50px;
+            }
+            .back-link {
+                padding: 10px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-link">← Back to Academic Portfolio</a>
+
+    <header class="project-header">
+        <div class="container">
+            <h1>Permutation and the License Problemy</h1>
+            <p class="tagline">My experience in peer-tutoring about the topics of Permutation and it's connection to the License Problem.</p>
+            
+            <div class="project-meta">
+                <span><strong>My Role:</strong>Peer-tutorer</span>
+                <span><strong>Course/Subject:</strong> Math</span>
+                <span><strong>Duration:</strong> 2025 Term 2</span>
+                <span><strong>Tools/Methods:</strong> Methods of teaching and Canva/learning tool.</span>
+            </div>
+
+            <div class="project-hero-image">
+                <img src="https://docs.google.com/document/d/15knrNkl1BByzgpcgGLhrbZFAGDI8ErnzjjOGUBIx4Ss/edit?usp=sharing" alt="Visual representation of the project's main finding or cover page">
+            </div>
+    </header>
+
+    <main id="project-content" class="container">
+        
+        <section class="section-block">
+            <h2>Project Directive and Objective/h2>
+            <p>The core objective of this paper was to investigate the widely discussed, yet statistically complex, relationship between daily social media usage and self-reported anxiety levels in a sample group of 150 high school students. My central thesis proposed that passive consumption of curated content, rather than active social interaction, is the most significant predictor of increased anxiety.</p>
+            <p>The research aimed to contribute valuable data to school counseling initiatives for digital wellness.</p>
+        </section>
+
+        <section class="section-block">
+            <h2>🔬 Methodology & Research Process</h2>
+            
+            <div class="process-step">
+                <h3>Phase 1: Literature Review & Hypothesis Formulation</h3>
+                <p>Conducted an extensive review of existing academic articles from the last five years, focusing on developmental psychology and media studies. This phase led to the creation of a refined, testable hypothesis focused on the type of social media engagement.</p>
+            </div>
+            
+            <div class="process-step">
+                <h3>Phase 2: Data Collection & Survey Deployment</h3>
+                <p>Designed a four-part anonymous survey approved by the Ethics Committee, utilizing the GAD-7 scale for anxiety measurement. Successfully gathered data from the target sample, ensuring demographic diversity to strengthen external validity.</p>
+                <img src="https://via.placeholder.com/800x350?text=Example+of+Data+Chart+or+Graph" alt="Visualization of survey results">
+            </div>
+            
+            <div class="process-step">
+                <h3>Phase 3: Analysis & Findings</h3>
+                <p>Used **SPSS** to perform correlational analysis and regression modeling. The data supported the hypothesis, showing a strong positive correlation ($r = 0.58$) between time spent passively viewing others' posts and higher anxiety scores, but a weak correlation with active communication.</p>
+            </div>
+        </section>
+
+        <section class="section-block reflection-section">
+            <h2>🧠 Personal Experience & Key Learnings</h2>
+            <p>This section documents my growth as a researcher and writer throughout this challenging academic endeavor.</p>
+            <ul>
+                <li>
+                    <strong>Biggest Challenge: Ethical Review & Bias Mitigation</strong>
+                    The hardest part was navigating the complexities of consent and ensuring the anonymity of teen participants. I learned to rigorously apply ethical research protocols and design survey questions that minimized researcher bias.
+                </li>
+                <li>
+                    <strong>Key Learning: Statistical Modeling</strong>
+                    I significantly improved my proficiency in **advanced statistical techniques**, moving beyond simple averages to understand multi-variable interactions and confidently interpret $p$-values and confidence intervals.
+                </li>
+                <li>
+                    <strong>If I Had More Time: Longitudinal Study</strong>
+                    I would have loved to extend this into a longitudinal study, following the same group of students for a full year to determine if the correlation developed into a causal relationship over time.
+                </li>
+            </ul>
+        </section>
+
+        <section class="section-block">
+            <h2>✅ Conclusion & Academic Impact</h2>
+            <p>The project successfully established statistically significant evidence supporting a link between passive social media use and anxiety. The findings were presented to the school board, leading directly to the implementation of new digital literacy workshops for all sophomores, demonstrating the real-world impact of my research.</p>
+        </section>
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>Jane Doe, Class of 2025 | Academic Portfolio.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
