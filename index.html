@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile</title>
+    <title>Portfolio</title>
     <style>
         :root {
             --bg-body: #fafafa;
             --bg-card: #ffffff;
             --text-primary: #262626;
             --text-secondary: #8e8e8e;
-            --linkedin-blue: #0a66c2;
-            --tumblr-accent: #36465d;
+            --accent-color: #0095f6; /* Instagram Blue */
+            --linkedin-color: #0a66c2;
             --border-color: #dbdbdb;
-            --max-width: 600px; /* Mobile app width simulation */
+            --max-width: 600px;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
@@ -21,14 +21,14 @@
         body { 
             background-color: var(--bg-body); 
             color: var(--text-primary);
-            padding-top: 60px;    /* Space for Top Nav */
-            padding-bottom: 70px; /* Space for Bottom Nav */
+            padding-top: 54px;   
+            padding-bottom: 60px; 
             min-height: 100vh;
         }
 
-        /* --- 1. INSTAGRAM UI FRAMEWORK --- */
-        
-        /* Top Navigation (Insta Style) */
+        a { text-decoration: none; color: inherit; }
+
+        /* --- 1. HEADER & NAV --- */
         header {
             background: var(--bg-card);
             border-bottom: 1px solid var(--border-color);
@@ -38,7 +38,6 @@
             height: 54px;
             display: flex;
             justify-content: center;
-            align-items: center;
             z-index: 100;
         }
 
@@ -51,10 +50,13 @@
             padding: 0 15px;
         }
 
-        .username { font-weight: 700; font-size: 1.1rem; }
-        .settings-icon { font-size: 1.2rem; cursor: pointer; }
+        .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
+        .available-badge { 
+            font-size: 0.75rem; color: #4caf50; border: 1px solid #4caf50; 
+            padding: 2px 6px; border-radius: 4px; font-weight: 600;
+        }
 
-        /* Container */
+        /* --- 2. PROFILE HERO (The "About" Section) --- */
         main {
             max-width: var(--max-width);
             margin: 0 auto;
@@ -64,138 +66,117 @@
             border-right: 1px solid var(--border-color);
         }
 
-        /* Profile Header */
-        .profile-section { padding: 20px 15px 0 15px; }
+        .profile-header { padding: 30px 20px 0 20px; display: flex; align-items: flex-start; gap: 20px; }
         
-        .profile-top { display: flex; align-items: center; margin-bottom: 15px; }
-        
-        .avatar-container { margin-right: 20px; position: relative; }
-        .avatar { 
-            width: 80px; height: 80px; 
-            border-radius: 50%; 
-            border: 1px solid var(--border-color); 
-            padding: 2px;
-        }
-        .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
-        .status-dot {
-            position: absolute; bottom: 5px; right: 5px;
-            width: 16px; height: 16px; background: #4caf50;
-            border: 2px solid white; border-radius: 50%;
-        }
-
-        .stats-container { display: flex; flex-grow: 1; justify-content: space-around; text-align: center; }
-        .stat-box { display: flex; flex-direction: column; }
-        .stat-num { font-weight: 700; font-size: 1.1rem; }
-        .stat-label { font-size: 0.8rem; color: var(--text-secondary); }
-
-        /* Bio Section (LinkedIn Content) */
-        .bio-section { padding: 0 15px; font-size: 0.95rem; line-height: 1.4; }
-        .bio-name { font-weight: 700; }
-        .bio-role { color: var(--text-secondary); margin-bottom: 5px; }
-        .bio-link { color: var(--linkedin-blue); font-weight: 600; text-decoration: none; }
-
-        /* Action Buttons (LinkedIn Function) */
-        .actions { padding: 15px; display: flex; gap: 10px; }
-        .btn {
-            flex: 1;
-            padding: 7px 0;
-            border-radius: 4px;
-            border: 1px solid var(--border-color);
-            background: transparent;
-            font-weight: 600;
-            font-size: 0.9rem;
-            cursor: pointer;
-            text-align: center;
-        }
-        .btn-primary { background-color: var(--linkedin-blue); color: white; border: none; }
-
-        /* Story Highlights (Used for Skills/Endorsements) */
-        .skills-scroll {
-            display: flex;
-            overflow-x: auto;
-            padding: 0 15px 15px 15px;
-            gap: 15px;
-            border-bottom: 1px solid var(--border-color);
-            scrollbar-width: none; /* Hide scrollbar Firefox */
-        }
-        .skills-scroll::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
-
-        .skill-item { display: flex; flex-direction: column; align-items: center; min-width: 64px; cursor: pointer; }
-        .skill-ring {
-            width: 64px; height: 64px;
+        .profile-avatar {
+            width: 90px; height: 90px; flex-shrink: 0;
             border-radius: 50%;
-            border: 1px solid var(--border-color);
             padding: 2px;
-            margin-bottom: 5px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.5rem; background: #f8f9fa;
+            background: linear-gradient(45deg, #FFC107, #f44336, #9c27b0); /* Portfolio Creative Gradient */
         }
-        .skill-name { font-size: 0.75rem; color: var(--text-primary); text-align: center; }
+        .profile-avatar img {
+            width: 100%; height: 100%; border-radius: 50%; border: 2px solid white; object-fit: cover;
+        }
 
-        /* Content Tabs */
+        .profile-info { flex-grow: 1; }
+        .profile-name { font-size: 1.3rem; font-weight: 400; margin-bottom: 5px; }
+        .profile-role { font-weight: 700; color: var(--text-primary); font-size: 1rem; }
+        .profile-bio { font-size: 0.95rem; line-height: 1.4; margin-top: 10px; white-space: pre-line; }
+        .profile-link { color: var(--linkedin-color); font-weight: 600; font-size: 0.9rem; margin-top: 5px; display: block; }
+
+        /* Action Buttons */
+        .cta-buttons { padding: 20px; display: flex; gap: 10px; }
+        .btn {
+            flex: 1; padding: 8px 0; border-radius: 8px; 
+            font-weight: 600; font-size: 0.9rem; cursor: pointer; text-align: center; border: none;
+        }
+        .btn-primary { background-color: var(--accent-color); color: white; }
+        .btn-secondary { background-color: #efefef; color: black; }
+
+        /* Tech Stack (Stories) */
+        .tech-stack {
+            display: flex; gap: 15px; overflow-x: auto; padding: 0 20px 20px 20px;
+            border-bottom: 1px solid var(--border-color);
+            scrollbar-width: none;
+        }
+        .stack-item { display: flex; flex-direction: column; align-items: center; min-width: 65px; cursor: pointer; }
+        .stack-icon {
+            width: 60px; height: 60px; border-radius: 50%; border: 1px solid var(--border-color);
+            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
+            background: #fafafa; margin-bottom: 5px; transition: transform 0.2s;
+        }
+        .stack-icon:hover { transform: scale(1.05); border-color: var(--text-primary); }
+        .stack-name { font-size: 0.75rem; font-weight: 600; }
+
+        /* --- 3. PORTFOLIO GRID/FEED --- */
         .tabs { display: flex; border-bottom: 1px solid var(--border-color); }
-        .tab { flex: 1; display: flex; justify-content: center; padding: 12px; cursor: pointer; color: var(--text-secondary); }
+        .tab { flex: 1; padding: 12px; display: flex; justify-content: center; cursor: pointer; color: var(--text-secondary); }
         .tab.active { border-bottom: 1px solid var(--text-primary); color: var(--text-primary); margin-bottom: -1px; }
 
-        /* --- 2. TUMBLR/LINKEDIN CONTENT LOGIC --- */
+        .portfolio-container { min-height: 400px; }
 
-        .content-area { min-height: 300px; }
+        /* Grid Mode */
+        .grid-view { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding-bottom: 50px;}
+        .grid-item { 
+            aspect-ratio: 1/1; position: relative; cursor: pointer; background: #eee; 
+            overflow: hidden;
+        }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
+        .grid-item:hover img { opacity: 0.7; }
+        .grid-overlay {
+            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
+            opacity: 0; transition: opacity 0.2s; background: rgba(0,0,0,0.3); color: white; font-weight: bold;
+        }
+        .grid-item:hover .grid-overlay { opacity: 1; }
 
-        /* GRID VIEW (Insta) */
-        .grid-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
-        .grid-item { aspect-ratio: 1/1; position: relative; background: #eee; cursor: pointer; overflow: hidden; }
-        .grid-item img { width: 100%; height: 100%; object-fit: cover; }
-        .grid-item .text-preview {
-            position: absolute; inset: 0; padding: 10px;
+        /* List/Case Study Mode */
+        .list-view { padding: 0; background: var(--bg-body); padding-bottom: 50px;}
+        .case-study { background: white; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); }
+        .cs-header { padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; }
+        .cs-title { font-weight: 700; font-size: 0.95rem; }
+        .cs-client { font-size: 0.8rem; color: var(--text-secondary); }
+        .cs-image { width: 100%; height: auto; display: block; }
+        .cs-body { padding: 15px; }
+        .cs-desc { font-size: 0.9rem; line-height: 1.5; margin-bottom: 10px; }
+        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
+        .tag { background: #efefef; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #555; }
+        .cs-footer { padding: 0 15px 15px; font-size: 0.8rem; color: var(--linkedin-color); font-weight: 600; cursor: pointer; }
+
+        /* --- 4. PROJECT MODAL (The Portfolio "Popup") --- */
+        .modal-overlay {
+            position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200;
             display: flex; align-items: center; justify-content: center;
-            text-align: center; font-size: 0.8rem; background: #36465d; color: white;
-            font-family: 'Courier New', monospace; /* Tumblr feel */
+            opacity: 0; pointer-events: none; transition: opacity 0.3s;
+            backdrop-filter: blur(5px);
         }
-
-        /* FEED VIEW (Tumblr/LinkedIn Blog) */
-        .feed-layout { padding: 0; background: var(--bg-body); }
-        .feed-post { 
-            background: white; 
-            margin-bottom: 15px; 
-            border-bottom: 1px solid var(--border-color);
-            padding-bottom: 10px;
-        }
-        .feed-header { padding: 10px 15px; display: flex; align-items: center; gap: 10px; }
-        .feed-avatar { width: 32px; height: 32px; border-radius: 50%; background: #ccc; }
-        .feed-meta strong { display: block; font-size: 0.9rem; }
-        .feed-meta span { font-size: 0.75rem; color: var(--text-secondary); }
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
         
-        .post-body { padding: 0 15px 10px 15px; font-size: 0.95rem; line-height: 1.5; }
-        .post-body img { width: 100%; margin: 10px 0; border-radius: 4px; }
+        .modal-card {
+            background: white; width: 90%; max-width: 500px; max-height: 85vh;
+            border-radius: 12px; overflow-y: auto; position: relative;
+        }
+        .modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; z-index: 10; background: rgba(255,255,255,0.8); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;}
         
-        /* Tumblr Specifics */
-        .quote-block {
-            border-left: 3px solid var(--text-primary);
-            padding-left: 15px;
-            font-style: italic;
-            font-size: 1.1rem;
-            margin: 10px 0;
-        }
-        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
-        .tag { color: var(--text-secondary); font-size: 0.85rem; }
-        .tag::before { content: '#'; color: var(--text-secondary); }
-
-        .interactions { 
-            padding: 5px 15px; display: flex; justify-content: space-between; 
-            font-size: 1.2rem; color: var(--text-primary);
+        .modal-img { width: 100%; height: 250px; object-fit: cover; }
+        .modal-content { padding: 25px; }
+        .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; }
+        .modal-meta { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px; }
+        .modal-text { font-size: 1rem; line-height: 1.6; color: #444; margin-bottom: 20px; }
+        .modal-btn { 
+            display: block; width: 100%; padding: 12px; background: var(--text-primary); 
+            color: white; text-align: center; border-radius: 6px; font-weight: 600; 
         }
 
-        /* Bottom Nav (Insta Style) */
+        /* Bottom Navigation */
         .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; height: 50px;
-            background: white; border-top: 1px solid var(--border-color);
-            display: flex; justify-content: space-around; align-items: center;
-            z-index: 100;
+            position: fixed; bottom: 0; width: 100%; height: 55px; background: white;
+            border-top: 1px solid var(--border-color); display: flex; justify-content: space-around;
+            align-items: center; z-index: 90;
         }
-        .nav-item { font-size: 1.4rem; cursor: pointer; color: var(--text-primary); }
-
-        /* Helper for Grid/List Icons */
-        .icon { width: 24px; height: 24px; fill: currentColor; }
+        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); cursor: pointer; }
+        .nav-item svg { width: 24px; height: 24px; fill: currentColor; }
+        .nav-item span { font-size: 0.6rem; margin-top: 2px; }
+        .nav-item.active { color: var(--text-primary); }
 
     </style>
 </head>
@@ -203,234 +184,238 @@
 
     <header>
         <div class="header-content">
-            <div class="username">alex_developer <span style="font-size: 0.8em; color: var(--linkedin-blue);">☑</span></div>
-            <div class="settings-icon">≡</div>
+            <div class="brand">alex.design</div>
+            <div class="available-badge">● Open to Work</div>
         </div>
     </header>
 
     <main>
-        <section class="profile-section">
-            <div class="profile-top">
-                <div class="avatar-container">
-                    <div class="avatar">
-                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar">
-                    </div>
-                    <div class="status-dot"></div> </div>
-                <div class="stats-container">
-                    <div class="stat-box"><span class="stat-num">124</span><span class="stat-label">Posts</span></div>
-                    <div class="stat-box"><span class="stat-num">1.5k</span><span class="stat-label">Connections</span></div>
-                    <div class="stat-box"><span class="stat-num">500+</span><span class="stat-label">Endorsed</span></div>
-                </div>
+        <section class="profile-header">
+            <div class="profile-avatar">
+                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Alex" alt="Me">
             </div>
-            
-            <div class="bio-section">
-                <div class="bio-name">Alex Dev</div>
-                <div class="bio-role">Full Stack Engineer | Open Source Contributor</div>
-                <div class="bio-text">
-                    Merging logic with design. 
-                    Previously @TechCorp. 
-                    Writing about JS, Career growth, and minimal UI.
+            <div class="profile-info">
+                <div class="profile-name">Alex Smith</div>
+                <div class="profile-role">Product Designer & Developer</div>
+                <div class="profile-bio">
+                    Building digital products with code and empathy.
+                    Specialized in React, UX Research, and Design Systems.
+                    Based in San Francisco.
                 </div>
-                <a href="#" class="bio-link">github.com/alexdev</a>
-            </div>
-
-            <div class="actions">
-                <button class="btn btn-primary" onclick="alert('Connection Request Sent!')">Connect</button>
-                <button class="btn">Message</button>
-                <button class="btn">Resume</button>
+                <a href="#" class="profile-link">🔗 alexsmith.com/resume</a>
             </div>
         </section>
 
-        <section class="skills-scroll">
-            <div class="skill-item">
-                <div class="skill-ring">JS</div>
-                <span class="skill-name">JavaScript</span>
+        <section class="cta-buttons">
+            <button class="btn btn-primary" onclick="alert('Scrolling to Contact...')">Email Me</button>
+            <button class="btn btn-secondary" onclick="alert('Downloading PDF...')">Download CV</button>
+            <button class="btn btn-secondary">GitHub</button>
+        </section>
+
+        <section class="tech-stack">
+            <div class="stack-item">
+                <div class="stack-icon">⚛️</div>
+                <span class="stack-name">React</span>
             </div>
-            <div class="skill-item">
-                <div class="skill-ring">⚛️</div>
-                <span class="skill-name">React</span>
+            <div class="stack-item">
+                <div class="stack-icon">🎨</div>
+                <span class="stack-name">Figma</span>
             </div>
-            <div class="skill-item">
-                <div class="skill-ring">🎨</div>
-                <span class="skill-name">Design</span>
+            <div class="stack-item">
+                <div class="stack-icon">🐍</div>
+                <span class="stack-name">Python</span>
             </div>
-            <div class="skill-item">
-                <div class="skill-ring">✒️</div>
-                <span class="skill-name">Writing</span>
+            <div class="stack-item">
+                <div class="stack-icon">💅</div>
+                <span class="stack-name">Sass</span>
             </div>
-            <div class="skill-item">
-                <div class="skill-ring">💼</div>
-                <span class="skill-name">Business</span>
+            <div class="stack-item">
+                <div class="stack-icon">🔥</div>
+                <span class="stack-name">Firebase</span>
             </div>
         </section>
 
         <div class="tabs">
-            <div class="tab active" id="tab-grid" onclick="setMode('grid')">
-                <svg class="icon" viewBox="0 0 48 48"><path d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z"></path></svg>
+            <div class="tab active" id="tab-grid" onclick="switchView('grid')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zm0 11h7v7h-7v-7zm-11 0h7v7H3v-7z"/></svg>
             </div>
-            <div class="tab" id="tab-feed" onclick="setMode('feed')">
-                <svg class="icon" viewBox="0 0 48 48"><path d="M47 31h-4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V33c0-1.1-.9-2-2-2zm-33-2h18v-2H14v2zm0 6h18v-2H14v2zm0 6h18v-2H14v2zm29 6h-2v-8h2v8zm-29-22h18v-2H14v2zm0-6h18v-2H14v2zm0-6h18V7H14v2zM5 45h4V3h-4v42z"></path></svg>
+            <div class="tab" id="tab-list" onclick="switchView('list')">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 11h16v2H4v-2zm0-7h16v2H4V4zm0 14h16v2H4v-2z"/></svg>
             </div>
         </div>
 
-        <div class="content-area grid-layout" id="app-content">
+        <div id="portfolio-content" class="portfolio-container grid-view">
             </div>
-
     </main>
 
-    <div class="bottom-nav">
-        <div class="nav-item">🏠</div>
-        <div class="nav-item">🔍</div>
-        <div class="nav-item" style="font-size: 2rem;">⊕</div> <div class="nav-item">❤️</div>
-        <div class="nav-item"><div style="width:24px; height:24px; background: #333; border-radius: 50%;"></div></div>
+    <div class="modal-overlay" id="project-modal" onclick="closeModal(event)">
+        <div class="modal-card">
+            <div class="modal-close" onclick="toggleModal(false)">×</div>
+            <img src="" class="modal-img" id="m-img">
+            <div class="modal-content">
+                <div class="modal-title" id="m-title">Project Title</div>
+                <div class="modal-meta" id="m-meta">Client • Year</div>
+                <div class="modal-text" id="m-desc">Description goes here...</div>
+                <div class="tags" id="m-tags" style="margin-bottom: 20px;"></div>
+                <a href="#" class="modal-btn" id="m-link" target="_blank">View Live Project</a>
+            </div>
+        </div>
     </div>
 
+    <nav class="bottom-nav">
+        <div class="nav-item active">
+            <svg viewBox="0 0 24 24"><path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
+            <span>Home</span>
+        </div>
+        <div class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
+            <span>Resume</span>
+        </div>
+        <div class="nav-item">
+            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg>
+            <span>Contact</span>
+        </div>
+    </nav>
+
     <script>
-        // DATA: This is where we mix LinkedIn Content types with Tumblr Structure
-        const posts = [
+        // --- DATA: Portfolio Projects ---
+        const projects = [
             {
                 id: 1,
-                type: 'photo',
-                content: 'Launched the new dashboard today. Increased user retention by 15% using optimized load strategies.',
-                media: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80',
-                tags: ['product', 'analytics', 'growth'],
-                likes: 84
+                title: "Fintech Dashboard",
+                client: "BankCorp",
+                year: "2023",
+                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
+                desc: "A complete overhaul of the customer banking portal. Focused on accessibility and data visualization for investment tracking.",
+                tags: ["React", "D3.js", "UX Research"],
+                link: "#"
             },
             {
                 id: 2,
-                type: 'quote',
-                content: 'First, solve the problem. Then, write the code.',
-                author: 'John Johnson',
-                tags: ['coding', 'philosophy', 'devlife'],
-                likes: 230
+                title: "E-Commerce App",
+                client: "Shopify Store",
+                year: "2023",
+                image: "https://images.unsplash.com/photo-1523206485973-005dfefe276c?auto=format&fit=crop&w=600&q=80",
+                desc: "Mobile-first shopping experience designed to increase conversion rates at checkout. Implemented dark mode and Apple Pay integration.",
+                tags: ["React Native", "Redux", "Stripe"],
+                link: "#"
             },
             {
                 id: 3,
-                type: 'text',
-                title: 'Why I switched to TypeScript',
-                content: 'It wasn\'t about the syntax. It was about the confidence in refactoring large scale applications. The ROI on setup time is paid back in debugging time.',
-                tags: ['typescript', 'javascript', 'opinion'],
-                likes: 45
+                title: "Travel Agency Brand",
+                client: "Wanderlust",
+                year: "2022",
+                image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80",
+                desc: "Brand identity and web design for a boutique travel agency. The goal was to evoke a sense of luxury and adventure.",
+                tags: ["Figma", "Branding", "Webflow"],
+                link: "#"
             },
             {
                 id: 4,
-                type: 'photo',
-                content: 'Office view for the day. Remote work has changed the game for creative focus.',
-                media: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=500&q=80',
-                tags: ['remotework', 'setup', 'minimalism'],
-                likes: 112
+                title: "Task Manager CLI",
+                client: "Open Source",
+                year: "2022",
+                image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=600&q=80",
+                desc: "A developer-focused command line tool for managing sprints and jira tickets directly from the terminal.",
+                tags: ["Node.js", "CLI", "Typescript"],
+                link: "#"
             },
             {
                 id: 5,
-                type: 'photo',
-                content: 'Attended the React Summit. Great networking with industry leaders.',
-                media: 'https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=500&q=80',
-                tags: ['conference', 'networking', 'learning'],
-                likes: 67
+                title: "Art Gallery Site",
+                client: "MOMA Local",
+                year: "2021",
+                image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80",
+                desc: "Minimalist layout for viewing high-resolution art pieces. Optimized for lazy loading and zoom interactions.",
+                tags: ["Vue.js", "GSAP", "Performance"],
+                link: "#"
             },
             {
                 id: 6,
-                type: 'quote',
-                content: 'Design is not just what it looks like and feels like. Design is how it works.',
-                author: 'Steve Jobs',
-                tags: ['design', 'ux', 'inspiration'],
-                likes: 890
+                title: "Health Tracker",
+                client: "FitLife",
+                year: "2021",
+                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80",
+                desc: "Wearable companion app for tracking heart rate and sleep cycles. Built with privacy-first architecture.",
+                tags: ["Swift", "iOS", "HealthKit"],
+                link: "#"
             }
         ];
 
-        const container = document.getElementById('app-content');
-        const tabGrid = document.getElementById('tab-grid');
-        const tabFeed = document.getElementById('tab-feed');
+        const container = document.getElementById('portfolio-content');
+        const modal = document.getElementById('project-modal');
+        
+        // --- VIEW LOGIC ---
+        function switchView(view) {
+            // Toggle Tab styles
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + view).classList.add('active');
 
-        // Function to render GRID (Instagram Style)
+            // Render content
+            if (view === 'grid') renderGrid();
+            else renderList();
+        }
+
         function renderGrid() {
-            container.className = 'content-area grid-layout';
-            container.innerHTML = posts.map(post => {
-                // If it's a photo, show photo. If text/quote, show styled text box.
-                if(post.type === 'photo') {
-                    return `<div class="grid-item"><img src="${post.media}" alt="post"></div>`;
-                } else {
-                    return `
-                        <div class="grid-item">
-                            <div class="text-preview">
-                                ${post.type === 'quote' ? '❝ ' + post.content.substring(0,30) + '... ❞' : '📄 ' + post.title}
-                            </div>
-                        </div>`;
-                }
-            }).join('');
-            
-            tabGrid.classList.add('active');
-            tabFeed.classList.remove('active');
-        }
-
-        // Function to render FEED (Tumblr/LinkedIn Style)
-        function renderFeed() {
-            container.className = 'content-area feed-layout';
-            container.innerHTML = posts.map(post => {
-                let innerHTML = '';
-                
-                // Content Logic
-                if (post.type === 'photo') {
-                    innerHTML = `
-                        <p>${post.content}</p>
-                        <img src="${post.media}" alt="post image">
-                    `;
-                } else if (post.type === 'quote') {
-                    innerHTML = `
-                        <div class="quote-block">
-                            "${post.content}"
-                            <br><small>— ${post.author}</small>
-                        </div>
-                    `;
-                } else if (post.type === 'text') {
-                    innerHTML = `
-                        <h3 style="margin-bottom:5px;">${post.title}</h3>
-                        <p>${post.content}</p>
-                    `;
-                }
-
-                return `
-                <div class="feed-post">
-                    <div class="feed-header">
-                        <div class="feed-avatar">
-                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" style="width:100%; border-radius:50%;">
-                        </div>
-                        <div class="feed-meta">
-                            <strong>alex_developer</strong>
-                            <span>${post.tags[0]} • Follow</span>
-                        </div>
+            container.className = 'portfolio-container grid-view';
+            container.innerHTML = projects.map(p => `
+                <div class="grid-item" onclick="openProject(${p.id})">
+                    <img src="${p.image}" alt="${p.title}">
+                    <div class="grid-overlay">
+                        <span>${p.title}</span>
                     </div>
-                    
-                    <div class="post-body">
-                        ${innerHTML}
-                        <div class="tag-cloud">
-                            ${post.tags.map(t => `<span class="tag">${t}</span>`).join('')}
-                        </div>
-                    </div>
-
-                    <div class="interactions">
-                        <div style="display:flex; gap:15px;">
-                            <span>❤️</span>
-                            <span>💬</span>
-                            <span>✈️</span>
-                        </div>
-                        <span>🔖</span>
-                    </div>
-                    <div style="padding: 0 15px; font-weight:600; font-size: 0.9rem;">${post.likes} notes</div>
                 </div>
-                `;
-            }).join('');
-
-            tabFeed.classList.add('active');
-            tabGrid.classList.remove('active');
+            `).join('');
         }
 
-        function setMode(mode) {
-            if(mode === 'grid') renderGrid();
-            else renderFeed();
+        function renderList() {
+            container.className = 'portfolio-container list-view';
+            container.innerHTML = projects.map(p => `
+                <div class="case-study">
+                    <div class="cs-header">
+                        <div class="cs-title">${p.title}</div>
+                        <div class="cs-client">${p.client}</div>
+                    </div>
+                    <img src="${p.image}" class="cs-image" onclick="openProject(${p.id})">
+                    <div class="cs-body">
+                        <div class="tags">
+                            ${p.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
+                        </div>
+                        <div class="cs-desc">${p.desc}</div>
+                    </div>
+                    <div class="cs-footer" onclick="openProject(${p.id})">
+                        View Full Case Study &rarr;
+                    </div>
+                </div>
+            `).join('');
         }
 
-        // Initialize
+        // --- MODAL LOGIC ---
+        function openProject(id) {
+            const p = projects.find(x => x.id === id);
+            if (!p) return;
+
+            // Populate Modal
+            document.getElementById('m-img').src = p.image;
+            document.getElementById('m-title').innerText = p.title;
+            document.getElementById('m-meta').innerText = `${p.client} • ${p.year}`;
+            document.getElementById('m-desc').innerText = p.desc;
+            document.getElementById('m-link').href = p.link;
+            document.getElementById('m-tags').innerHTML = p.tags.map(t => `<span class="tag">#${t}</span>`).join('');
+
+            toggleModal(true);
+        }
+
+        function toggleModal(show) {
+            if(show) modal.classList.add('open');
+            else modal.classList.remove('open');
+        }
+
+        function closeModal(e) {
+            if (e.target === modal) toggleModal(false);
+        }
+
+        // Init
         renderGrid();
 
     </script>
