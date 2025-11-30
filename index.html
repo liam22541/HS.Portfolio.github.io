@@ -3,421 +3,529 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Portfolio</title>
+    <title>Alex Smith - Digital Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    
     <style>
+        /* --- Base Reset & Variables --- */
         :root {
-            --bg-body: #fafafa;
-            --bg-card: #ffffff;
-            --text-primary: #262626;
-            --text-secondary: #8e8e8e;
-            --accent-color: #0095f6; /* Instagram Blue */
-            --linkedin-color: #0a66c2;
-            --border-color: #dbdbdb;
-            --max-width: 600px;
+            --primary-color: #0077b5; /* LinkedIn Blue for accent */
+            --secondary-color: #36465d; /* Tumblr/Dark Text */
+            --bg-light: #fafafa; /* Instagram/Clean Background */
+            --bg-white: #ffffff;
+            --border-color: #dbdbdb; /* Subtle Instagram Border */
+            --text-main: #262626;
+            --text-subtle: #8e8e8e;
+            --sidebar-width: 300px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
-        
-        body { 
-            background-color: var(--bg-body); 
-            color: var(--text-primary);
-            padding-top: 54px;   
-            padding-bottom: 60px; 
-            min-height: 100vh;
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
         }
 
-        a { text-decoration: none; color: inherit; }
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+        }
 
-        /* --- 1. HEADER & NAV --- */
+        a {
+            text-decoration: none;
+            color: var(--primary-color);
+        }
+
+        /* --- Navigation (LinkedIn Minimal) --- */
         header {
-            background: var(--bg-card);
+            background-color: var(--bg-white);
             border-bottom: 1px solid var(--border-color);
-            position: fixed;
+            position: sticky;
             top: 0;
-            width: 100%;
-            height: 54px;
-            display: flex;
-            justify-content: center;
-            z-index: 100;
+            z-index: 1000;
         }
 
-        .header-content {
-            width: 100%;
-            max-width: var(--max-width);
+        nav {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0 15px;
-        }
-
-        .brand { font-weight: 800; font-size: 1.2rem; letter-spacing: -0.5px; }
-        .available-badge { 
-            font-size: 0.75rem; color: #4caf50; border: 1px solid #4caf50; 
-            padding: 2px 6px; border-radius: 4px; font-weight: 600;
-        }
-
-        /* --- 2. PROFILE HERO (The "About" Section) --- */
-        main {
-            max-width: var(--max-width);
+            max-width: 1200px;
             margin: 0 auto;
-            background: var(--bg-card);
-            min-height: 100vh;
-            border-left: 1px solid var(--border-color);
-            border-right: 1px solid var(--border-color);
+            padding: 1rem 20px;
         }
 
-        .profile-header { padding: 30px 20px 0 20px; display: flex; align-items: flex-start; gap: 20px; }
-        
-        .profile-avatar {
-            width: 90px; height: 90px; flex-shrink: 0;
+        .nav-brand a {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-color);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li a {
+            color: var(--text-subtle);
+            margin-left: 20px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .nav-links li a:hover {
+            color: var(--text-main);
+        }
+
+        /* --- Main Layout (Sidebar + Gallery) --- */
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* --- Profile Sidebar (Tumblr Blog Aesthetic) --- */
+        .profile-sidebar {
+            width: var(--sidebar-width);
+            flex-shrink: 0;
+            margin-right: 40px;
+            padding: 20px;
+            background-color: var(--bg-white);
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            text-align: center;
+        }
+
+        .profile-pic {
+            width: 120px;
+            height: 120px;
             border-radius: 50%;
-            padding: 2px;
-            background: linear-gradient(45deg, #FFC107, #f44336, #9c27b0); /* Portfolio Creative Gradient */
-        }
-        .profile-avatar img {
-            width: 100%; height: 100%; border-radius: 50%; border: 2px solid white; object-fit: cover;
+            object-fit: cover;
+            margin-bottom: 15px;
+            border: 3px solid var(--primary-color); /* LinkedIn/Portfolio highlight */
         }
 
-        .profile-info { flex-grow: 1; }
-        .profile-name { font-size: 1.3rem; font-weight: 400; margin-bottom: 5px; }
-        .profile-role { font-weight: 700; color: var(--text-primary); font-size: 1rem; }
-        .profile-bio { font-size: 0.95rem; line-height: 1.4; margin-top: 10px; white-space: pre-line; }
-        .profile-link { color: var(--linkedin-color); font-weight: 600; font-size: 0.9rem; margin-top: 5px; display: block; }
-
-        /* Action Buttons */
-        .cta-buttons { padding: 20px; display: flex; gap: 10px; }
-        .btn {
-            flex: 1; padding: 8px 0; border-radius: 8px; 
-            font-weight: 600; font-size: 0.9rem; cursor: pointer; text-align: center; border: none;
+        .profile-sidebar h1 {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
         }
-        .btn-primary { background-color: var(--accent-color); color: white; }
-        .btn-secondary { background-color: #efefef; color: black; }
 
-        /* Tech Stack (Stories) */
-        .tech-stack {
-            display: flex; gap: 15px; overflow-x: auto; padding: 0 20px 20px 20px;
-            border-bottom: 1px solid var(--border-color);
-            scrollbar-width: none;
+        .profile-sidebar h2 {
+            font-size: 1rem;
+            color: var(--text-subtle);
+            font-weight: 400;
+            margin-bottom: 15px;
         }
-        .stack-item { display: flex; flex-direction: column; align-items: center; min-width: 65px; cursor: pointer; }
-        .stack-icon {
-            width: 60px; height: 60px; border-radius: 50%; border: 1px solid var(--border-color);
-            display: flex; align-items: center; justify-content: center; font-size: 1.5rem;
-            background: #fafafa; margin-bottom: 5px; transition: transform 0.2s;
+
+        .bio {
+            font-size: 0.9rem;
+            color: var(--secondary-color); /* More prominent text */
+            margin-bottom: 20px;
         }
-        .stack-icon:hover { transform: scale(1.05); border-color: var(--text-primary); }
-        .stack-name { font-size: 0.75rem; font-weight: 600; }
 
-        /* --- 3. PORTFOLIO GRID/FEED --- */
-        .tabs { display: flex; border-bottom: 1px solid var(--border-color); }
-        .tab { flex: 1; padding: 12px; display: flex; justify-content: center; cursor: pointer; color: var(--text-secondary); }
-        .tab.active { border-bottom: 1px solid var(--text-primary); color: var(--text-primary); margin-bottom: -1px; }
+        /* Social Links (Instagram Icons) */
+        .social-links {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
 
-        .portfolio-container { min-height: 400px; }
+        .social-links a {
+            color: var(--text-subtle);
+            font-size: 1.4rem;
+            transition: color 0.2s;
+        }
 
-        /* Grid Mode */
-        .grid-view { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; padding-bottom: 50px;}
-        .grid-item { 
-            aspect-ratio: 1/1; position: relative; cursor: pointer; background: #eee; 
+        .social-links a:hover {
+            color: var(--primary-color);
+        }
+
+        .cta-button {
+            display: inline-block;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px 25px;
+            border-radius: 4px;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .cta-button:hover {
+            background-color: #005f93;
+        }
+
+        /* --- Project Gallery (Instagram Grid) --- */
+        .project-gallery {
+            flex-grow: 1;
+        }
+
+        .project-gallery h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            padding-left: 10px;
+        }
+
+        .gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); /* Responsive Grid */
+            gap: 20px;
+        }
+
+        .project-card {
+            display: block;
+            position: relative;
             overflow: hidden;
+            border-radius: 6px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            aspect-ratio: 1 / 1; /* Key for Instagram Square Grid */
         }
-        .grid-item img { width: 100%; height: 100%; object-fit: cover; transition: opacity 0.3s; }
-        .grid-item:hover img { opacity: 0.7; }
-        .grid-overlay {
-            position: absolute; inset: 0; display: flex; align-items: center; justify-content: center;
-            opacity: 0; transition: opacity 0.2s; background: rgba(0,0,0,0.3); color: white; font-weight: bold;
+
+        .project-card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
         }
-        .grid-item:hover .grid-overlay { opacity: 1; }
 
-        /* List/Case Study Mode */
-        .list-view { padding: 0; background: var(--bg-body); padding-bottom: 50px;}
-        .case-study { background: white; margin-bottom: 20px; border-bottom: 1px solid var(--border-color); }
-        .cs-header { padding: 12px 15px; display: flex; align-items: center; justify-content: space-between; }
-        .cs-title { font-weight: 700; font-size: 0.95rem; }
-        .cs-client { font-size: 0.8rem; color: var(--text-secondary); }
-        .cs-image { width: 100%; height: auto; display: block; }
-        .cs-body { padding: 15px; }
-        .cs-desc { font-size: 0.9rem; line-height: 1.5; margin-bottom: 10px; }
-        .tags { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 10px; }
-        .tag { background: #efefef; padding: 4px 8px; border-radius: 4px; font-size: 0.75rem; color: #555; }
-        .cs-footer { padding: 0 15px 15px; font-size: 0.8rem; color: var(--linkedin-color); font-weight: 600; cursor: pointer; }
+        .project-card:hover img {
+            transform: scale(1.05);
+        }
 
-        /* --- 4. PROJECT MODAL (The Portfolio "Popup") --- */
+        /* Overlay (Minimal/Visual Focus) */
+        .card-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.4);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .card-overlay {
+            opacity: 1;
+        }
+
+        .card-overlay h3 {
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px 20px;
+            background-color: var(--bg-white);
+            border-top: 1px solid var(--border-color);
+            margin-top: 40px;
+        }
+
+        footer h2 {
+            font-size: 1.8rem;
+            margin-bottom: 10px;
+        }
+
+        /* --- Modal Styling --- */
         .modal-overlay {
-            position: fixed; inset: 0; background: rgba(0,0,0,0.6); z-index: 200;
-            display: flex; align-items: center; justify-content: center;
-            opacity: 0; pointer-events: none; transition: opacity 0.3s;
-            backdrop-filter: blur(5px);
-        }
-        .modal-overlay.open { opacity: 1; pointer-events: all; }
-        
-        .modal-card {
-            background: white; width: 90%; max-width: 500px; max-height: 85vh;
-            border-radius: 12px; overflow-y: auto; position: relative;
-        }
-        .modal-close { position: absolute; top: 15px; right: 15px; font-size: 1.5rem; cursor: pointer; z-index: 10; background: rgba(255,255,255,0.8); width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center;}
-        
-        .modal-img { width: 100%; height: 250px; object-fit: cover; }
-        .modal-content { padding: 25px; }
-        .modal-title { font-size: 1.4rem; font-weight: 800; margin-bottom: 5px; }
-        .modal-meta { font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 15px; }
-        .modal-text { font-size: 1rem; line-height: 1.6; color: #444; margin-bottom: 20px; }
-        .modal-btn { 
-            display: block; width: 100%; padding: 12px; background: var(--text-primary); 
-            color: white; text-align: center; border-radius: 6px; font-weight: 600; 
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+            display: none; 
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
         }
 
-        /* Bottom Navigation */
-        .bottom-nav {
-            position: fixed; bottom: 0; width: 100%; height: 55px; background: white;
-            border-top: 1px solid var(--border-color); display: flex; justify-content: space-around;
-            align-items: center; z-index: 90;
+        .modal-overlay:target {
+            display: flex;
         }
-        .nav-item { display: flex; flex-direction: column; align-items: center; color: var(--text-secondary); cursor: pointer; }
-        .nav-item svg { width: 24px; height: 24px; fill: currentColor; }
-        .nav-item span { font-size: 0.6rem; margin-top: 2px; }
-        .nav-item.active { color: var(--text-primary); }
 
+        .modal-content {
+            background-color: var(--bg-white);
+            padding: 30px;
+            border-radius: 8px;
+            max-width: 800px;
+            position: relative;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            font-size: 2rem;
+            color: var(--text-main);
+            line-height: 1;
+        }
+
+        .modal-content h2 {
+            margin-top: 10px;
+            font-size: 1.8rem;
+        }
+
+        .modal-content img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 4px;
+            margin-bottom: 15px;
+        }
+
+        /* --- New Dynamic Tag Filter CSS --- */
+        .tag-filter-container { margin-bottom: 20px; padding: 0 10px; display: flex; flex-wrap: wrap; gap: 8px; }
+        .tag-filter { 
+            cursor: pointer; 
+            padding: 5px 10px; 
+            background: #eee; 
+            border-radius: 15px; 
+            font-size: 0.85rem; 
+            color: var(--secondary-color);
+            transition: background 0.2s, color 0.2s;
+        }
+        .tag-filter.active, .tag-filter:hover {
+            background: var(--primary-color);
+            color: white;
+        }
+
+        /* --- Responsive Design --- */
+        @media (max-width: 900px) {
+            .container {
+                flex-direction: column;
+            }
+
+            .profile-sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 30px;
+            }
+
+            .project-gallery h2 {
+                padding-left: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none; 
+            }
+
+            nav {
+                justify-content: center;
+            }
+
+            .gallery-grid {
+                grid-template-columns: 1fr 1fr; 
+                gap: 10px;
+            }
+        }
     </style>
 </head>
 <body>
 
     <header>
-        <div class="header-content">
-            <div class="brand">alex.design</div>
-            <div class="available-badge">● Open to Work</div>
-        </div>
+        <nav>
+            <div class="nav-brand">
+                <a href="#">Alex Smith</a>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#about">About</a></li>
+                <li><a href="#portfolio">Portfolio</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
     </header>
 
-    <main>
-        <section class="profile-header">
-            <div class="profile-avatar">
-                <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Alex" alt="Me">
+    <div class="container" id="about">
+
+        <aside class="profile-sidebar">
+            
+            <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Alex" alt="Alex Smith" class="profile-pic">
+            <h1>Alex Smith</h1>
+            <h2>Web Developer & Designer</h2>
+            <p class="bio">
+                Welcome to my digital space. I specialize in blending **clean design** (Instagram) with **robust functionality** (LinkedIn/Tumblr). Currently accepting freelance projects.
+            </p>
+            <div class="social-links">
+                <a href="#" aria-label="LinkedIn Profile"><i class="fab fa-linkedin"></i></a>
+                <a href="#" aria-label="GitHub Profile"><i class="fab fa-github"></i></a>
+                <a href="#" aria-label="Tumblr Profile"><i class="fab fa-tumblr"></i></a>
+                <a href="#" aria-label="Instagram Profile"><i class="fab fa-instagram"></i></a>
             </div>
-            <div class="profile-info">
-                <div class="profile-name">Alex Smith</div>
-                <div class="profile-role">Product Designer & Developer</div>
-                <div class="profile-bio">
-                    Building digital products with code and empathy.
-                    Specialized in React, UX Research, and Design Systems.
-                    Based in San Francisco.
+            <a href="#contact" class="cta-button">Contact Me</a>
+            
+            <div id="status-update" style="margin-top: 20px; font-size: 0.9em; color: var(--text-subtle);">
                 </div>
-                <a href="#" class="profile-link">🔗 alexsmith.com/resume</a>
-            </div>
-        </section>
+        </aside>
 
-        <section class="cta-buttons">
-            <button class="btn btn-primary" onclick="alert('Scrolling to Contact...')">Email Me</button>
-            <button class="btn btn-secondary" onclick="alert('Downloading PDF...')">Download CV</button>
-            <button class="btn btn-secondary">GitHub</button>
-        </section>
+        <main class="project-gallery" id="portfolio">
+            <h2>My Work</h2>
+            
+            <div class="gallery-grid" id="gallery-grid">
+                <a href="#project1" class="project-card" data-tags="e-commerce,javascript,responsive">
+                    <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=300&q=80" alt="Project 1 Thumbnail">
+                    <div class="card-overlay">
+                        <h3>Project One (E-Commerce)</h3>
+                    </div>
+                </a>
+                
+                <a href="#project2" class="project-card" data-tags="branding,design,minimalist">
+                    <img src="https://images.unsplash.com/photo-1523206485973-005dfefe276c?auto=format&fit=crop&w=300&q=80" alt="Project 2 Thumbnail">
+                    <div class="card-overlay">
+                        <h3>Project Two (Branding)</h3>
+                    </div>
+                </a>
 
-        <section class="tech-stack">
-            <div class="stack-item">
-                <div class="stack-icon">⚛️</div>
-                <span class="stack-name">React</span>
-            </div>
-            <div class="stack-item">
-                <div class="stack-icon">🎨</div>
-                <span class="stack-name">Figma</span>
-            </div>
-            <div class="stack-item">
-                <div class="stack-icon">🐍</div>
-                <span class="stack-name">Python</span>
-            </div>
-            <div class="stack-item">
-                <div class="stack-icon">💅</div>
-                <span class="stack-name">Sass</span>
-            </div>
-            <div class="stack-item">
-                <div class="stack-icon">🔥</div>
-                <span class="stack-name">Firebase</span>
-            </div>
-        </section>
+                <a href="#project3" class="project-card" data-tags="blogging,tumblr,photography">
+                    <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=300&q=80" alt="Project 3 Thumbnail">
+                    <div class="card-overlay">
+                        <h3>Project Three (Photo Blog)</h3>
+                    </div>
+                </a>
 
-        <div class="tabs">
-            <div class="tab active" id="tab-grid" onclick="switchView('grid')">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M3 3h7v7H3V3zm11 0h7v7h-7V3zm0 11h7v7h-7v-7zm-11 0h7v7H3v-7z"/></svg>
+                <a href="#project4" class="project-card" data-tags="illustration,instagram,design">
+                    <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=300&q=80" alt="Project 4 Thumbnail">
+                    <div class="card-overlay">
+                        <h3>Project Four (Visual Art)</h3>
+                    </div>
+                </a>
             </div>
-            <div class="tab" id="tab-list" onclick="switchView('list')">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor"><path d="M4 11h16v2H4v-2zm0-7h16v2H4V4zm0 14h16v2H4v-2z"/></svg>
-            </div>
-        </div>
+        </main>
 
-        <div id="portfolio-content" class="portfolio-container grid-view">
-            </div>
-    </main>
+    </div> 
+    
+    <footer id="contact">
+        <h2>Get In Touch</h2>
+        <p>Email me at <a href="mailto:your.email@example.com">your.email@example.com</a></p>
+        <p>Or find me on <a href="#" style="color: var(--secondary-color); font-weight: 600;">LinkedIn</a> for professional inquiries.</p>
+    </footer>
 
-    <div class="modal-overlay" id="project-modal" onclick="closeModal(event)">
-        <div class="modal-card">
-            <div class="modal-close" onclick="toggleModal(false)">×</div>
-            <img src="" class="modal-img" id="m-img">
-            <div class="modal-content">
-                <div class="modal-title" id="m-title">Project Title</div>
-                <div class="modal-meta" id="m-meta">Client • Year</div>
-                <div class="modal-text" id="m-desc">Description goes here...</div>
-                <div class="tags" id="m-tags" style="margin-bottom: 20px;"></div>
-                <a href="#" class="modal-btn" id="m-link" target="_blank">View Live Project</a>
-            </div>
+    <div class="modal-overlay" id="project1">
+        <div class="modal-content">
+            <a href="#portfolio" class="modal-close">&times;</a>
+            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Project 1 Detail">
+            <h2>Project One (E-Commerce)</h2>
+            <p>This is a detailed description of Project One. I used **React, Node, and JavaScript** to build a fully responsive e-commerce platform. The design focuses on user experience and a clean interface.</p>
+            <p style="font-weight: 600; margin-top: 15px;">Tech Stack: <span style="color: var(--primary-color);">React, Node, Redux</span></p>
+            <a href="#" class="cta-button" target="_blank">View Live Site</a>
         </div>
     </div>
 
-    <nav class="bottom-nav">
-        <div class="nav-item active">
-            <svg viewBox="0 0 24 24"><path d="M12 5.69l5 4.5V18h-2v-6H9v6H7v-7.81l5-4.5M12 3L2 12h3v8h6v-6h2v6h6v-8h3L12 3z"/></svg>
-            <span>Home</span>
+    <div class="modal-overlay" id="project2">
+        <div class="modal-content">
+            <a href="#portfolio" class="modal-close">&times;</a>
+            <img src="https://images.unsplash.com/photo-1523206485973-005dfefe276c?auto=format&fit=crop&w=600&q=80" alt="Project 2 Detail">
+            <h2>Project Two (Branding)</h2>
+            <p>This was a **branding and UI/UX project** for a local business. The work included logo design, menu layout, and a mobile-friendly landing page. Inspired by minimalist and rustic aesthetics.</p>
+            <p style="font-weight: 600; margin-top: 15px;">Tech Stack: <span style="color: var(--primary-color);">Figma, Adobe XD, Sass</span></p>
+            <a href="#" class="cta-button" target="_blank">View Case Study</a>
         </div>
-        <div class="nav-item">
-            <svg viewBox="0 0 24 24"><path d="M14 2H6c-1.1 0-1.99.9-1.99 2L4 20c0 1.1.89 2 1.99 2H18c1.1 0 2-.9 2-2V8l-6-6zm2 16H8v-2h8v2zm0-4H8v-2h8v2zm-3-5V3.5L18.5 9H13z"/></svg>
-            <span>Resume</span>
+    </div>
+
+    <div class="modal-overlay" id="project3">
+        <div class="modal-content">
+            <a href="#portfolio" class="modal-close">&times;</a>
+            <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Project 3 Detail">
+            <h2>Project Three (Photo Blog)</h2>
+            <p>A personal photography blog built on **Tumblr**, with a custom-coded theme to emphasize large, high-resolution images and a masonry grid layout. **(Tumblr inspiration)**</p>
+            <p style="font-weight: 600; margin-top: 15px;">Tech Stack: <span style="color: var(--primary-color);">HTML/CSS, JavaScript</span></p>
+            <a href="#" class="cta-button" target="_blank">View Blog</a>
         </div>
-        <div class="nav-item">
-            <svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 14H4V8l8 5 8-5v10zm-8-7L4 6h16l-8 5z"/></svg>
-            <span>Contact</span>
+    </div>
+    
+    <div class="modal-overlay" id="project4">
+        <div class="modal-content">
+            <a href="#portfolio" class="modal-close">&times;</a>
+            <img src="https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80" alt="Project 4 Detail">
+            <h2>Project Four (Visual Art)</h2>
+            <p>An illustration series shared on **Instagram**, which gained significant traction. This modal describes the concept, tools (Procreate, Adobe Illustrator), and process. **(Instagram inspiration)**</p>
+            <p style="font-weight: 600; margin-top: 15px;">Tech Stack: <span style="color: var(--primary-color);">Procreate, Illustrator</span></p>
+            <a href="#" class="cta-button" target="_blank">View on Instagram</a>
         </div>
-    </nav>
+    </div>
 
     <script>
-        // --- DATA: Portfolio Projects ---
-        const projects = [
-            {
-                id: 1,
-                title: "Fintech Dashboard",
-                client: "BankCorp",
-                year: "2023",
-                image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80",
-                desc: "A complete overhaul of the customer banking portal. Focused on accessibility and data visualization for investment tracking.",
-                tags: ["React", "D3.js", "UX Research"],
-                link: "#"
-            },
-            {
-                id: 2,
-                title: "E-Commerce App",
-                client: "Shopify Store",
-                year: "2023",
-                image: "https://images.unsplash.com/photo-1523206485973-005dfefe276c?auto=format&fit=crop&w=600&q=80",
-                desc: "Mobile-first shopping experience designed to increase conversion rates at checkout. Implemented dark mode and Apple Pay integration.",
-                tags: ["React Native", "Redux", "Stripe"],
-                link: "#"
-            },
-            {
-                id: 3,
-                title: "Travel Agency Brand",
-                client: "Wanderlust",
-                year: "2022",
-                image: "https://images.unsplash.com/photo-1476514525535-07fb3b4ae5f1?auto=format&fit=crop&w=600&q=80",
-                desc: "Brand identity and web design for a boutique travel agency. The goal was to evoke a sense of luxury and adventure.",
-                tags: ["Figma", "Branding", "Webflow"],
-                link: "#"
-            },
-            {
-                id: 4,
-                title: "Task Manager CLI",
-                client: "Open Source",
-                year: "2022",
-                image: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=600&q=80",
-                desc: "A developer-focused command line tool for managing sprints and jira tickets directly from the terminal.",
-                tags: ["Node.js", "CLI", "Typescript"],
-                link: "#"
-            },
-            {
-                id: 5,
-                title: "Art Gallery Site",
-                client: "MOMA Local",
-                year: "2021",
-                image: "https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80",
-                desc: "Minimalist layout for viewing high-resolution art pieces. Optimized for lazy loading and zoom interactions.",
-                tags: ["Vue.js", "GSAP", "Performance"],
-                link: "#"
-            },
-            {
-                id: 6,
-                title: "Health Tracker",
-                client: "FitLife",
-                year: "2021",
-                image: "https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=600&q=80",
-                desc: "Wearable companion app for tracking heart rate and sleep cycles. Built with privacy-first architecture.",
-                tags: ["Swift", "iOS", "HealthKit"],
-                link: "#"
+        document.addEventListener('DOMContentLoaded', () => {
+            // 1. PROJECT DATA & TUMBLR-STYLE TAGGING
+            const projects = [
+                { id: 'project1', title: 'Project One (E-Commerce)', tags: ['e-commerce', 'javascript', 'responsive'], tech: 'React, Node' },
+                { id: 'project2', title: 'Project Two (Branding)', tags: ['branding', 'design', 'minimalist'], tech: 'Figma, Adobe XD' },
+                { id: 'project3', title: 'Project Three (Photo Blog)', tags: ['blogging', 'tumblr', 'photography'], tech: 'HTML, CSS' },
+                { id: 'project4', title: 'Project Four (Visual Art)', tags: ['illustration', 'instagram', 'design'], tech: 'Procreate, Illustrator' },
+                { id: 'project5', title: 'Project Five (Fintech)', tags: ['fintech', 'data-viz', 'react'], tech: 'React, D3.js' },
+                { id: 'project6', title: 'Project Six (Backend API)', tags: ['api', 'backend', 'python'], tech: 'Python, Flask' }
+            ];
+
+            const galleryGrid = document.getElementById('gallery-grid');
+            const projectCards = document.querySelectorAll('.project-card');
+            const projectGallery = document.getElementById('portfolio');
+            const statusUpdate = document.getElementById('status-update');
+
+            // --- Dynamic Tag Generation (Tumblr/Portfolio Feature) ---
+            function generateTagsHTML() {
+                const allTags = projects.flatMap(p => p.tags);
+                const uniqueTags = [...new Set(allTags)];
+                
+                const tagsContainer = document.createElement('div');
+                tagsContainer.className = 'tag-filter-container';
+                tagsContainer.innerHTML = '<span class="tag-filter active" data-tag="all">#all</span>';
+
+                uniqueTags.forEach(tag => {
+                    const tagSpan = document.createElement('span');
+                    tagSpan.className = 'tag-filter';
+                    tagSpan.textContent = `#${tag}`;
+                    tagSpan.dataset.tag = tag;
+                    tagSpan.addEventListener('click', () => filterProjects(tag));
+                    tagsContainer.appendChild(tagSpan);
+                });
+                
+                projectGallery.insertBefore(tagsContainer, galleryGrid);
             }
-        ];
 
-        const container = document.getElementById('portfolio-content');
-        const modal = document.getElementById('project-modal');
-        
-        // --- VIEW LOGIC ---
-        function switchView(view) {
-            // Toggle Tab styles
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.getElementById('tab-' + view).classList.add('active');
+            // --- Project Filtering (Core Portfolio/Tumblr Functionality) ---
+            function filterProjects(selectedTag) {
+                // Update active tag button
+                document.querySelectorAll('.tag-filter').forEach(tag => {
+                    tag.classList.remove('active');
+                    if (tag.dataset.tag === selectedTag) {
+                        tag.classList.add('active');
+                    }
+                });
 
-            // Render content
-            if (view === 'grid') renderGrid();
-            else renderList();
-        }
+                // Filter the cards
+                document.querySelectorAll('.project-card').forEach(card => {
+                    const tags = card.dataset.tags.split(',');
+                    const matches = selectedTag === 'all' || tags.includes(selectedTag);
+                    card.style.display = matches ? 'block' : 'none';
+                });
+            }
+            
+            // --- Status Update (LinkedIn Feature) ---
+            function updateStatus() {
+                const statuses = [
+                    "Engaged in 2 active projects: #React dashboard & #Python API optimization.",
+                    "Seeking collaboration for open-source #Typescript projects.",
+                    "Endorsed by 5 colleagues this week for #UI/UX design.",
+                    "Currently learning WebGL for 3D visualization in browsers."
+                ];
+                
+                // Display a random, professional-sounding status
+                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                statusUpdate.innerHTML = `<i class="fas fa-briefcase"></i> ${randomStatus}`;
+            }
 
-        function renderGrid() {
-            container.className = 'portfolio-container grid-view';
-            container.innerHTML = projects.map(p => `
-                <div class="grid-item" onclick="openProject(${p.id})">
-                    <img src="${p.image}" alt="${p.title}">
-                    <div class="grid-overlay">
-                        <span>${p.title}</span>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function renderList() {
-            container.className = 'portfolio-container list-view';
-            container.innerHTML = projects.map(p => `
-                <div class="case-study">
-                    <div class="cs-header">
-                        <div class="cs-title">${p.title}</div>
-                        <div class="cs-client">${p.client}</div>
-                    </div>
-                    <img src="${p.image}" class="cs-image" onclick="openProject(${p.id})">
-                    <div class="cs-body">
-                        <div class="tags">
-                            ${p.tags.map(t => `<span class="tag">#${t}</span>`).join('')}
-                        </div>
-                        <div class="cs-desc">${p.desc}</div>
-                    </div>
-                    <div class="cs-footer" onclick="openProject(${p.id})">
-                        View Full Case Study &rarr;
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        // --- MODAL LOGIC ---
-        function openProject(id) {
-            const p = projects.find(x => x.id === id);
-            if (!p) return;
-
-            // Populate Modal
-            document.getElementById('m-img').src = p.image;
-            document.getElementById('m-title').innerText = p.title;
-            document.getElementById('m-meta').innerText = `${p.client} • ${p.year}`;
-            document.getElementById('m-desc').innerText = p.desc;
-            document.getElementById('m-link').href = p.link;
-            document.getElementById('m-tags').innerHTML = p.tags.map(t => `<span class="tag">#${t}</span>`).join('');
-
-            toggleModal(true);
-        }
-
-        function toggleModal(show) {
-            if(show) modal.classList.add('open');
-            else modal.classList.remove('open');
-        }
-
-        function closeModal(e) {
-            if (e.target === modal) toggleModal(false);
-        }
-
-        // Init
-        renderGrid();
-
+            // Initialize all dynamic features
+            generateTagsHTML();
+            updateStatus();
+            
+            // Initial filter to ensure only default cards are shown (if needed)
+            filterProjects('all'); 
+        });
     </script>
 </body>
 </html>
