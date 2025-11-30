@@ -3,404 +3,435 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hybrid Portfolio</title>
+    <title>Profile</title>
     <style>
-        /* --- CSS VARIABLES & RESET --- */
         :root {
-            --bg-color: #fafafa;
-            --card-bg: #ffffff;
-            --text-main: #262626;
+            --bg-body: #fafafa;
+            --bg-card: #ffffff;
+            --text-primary: #262626;
             --text-secondary: #8e8e8e;
-            --accent-blue: #0077b5; /* LinkedIn Blue */
+            --linkedin-blue: #0a66c2;
+            --tumblr-accent: #36465d;
             --border-color: #dbdbdb;
-            --tumblr-tag: #a5a5a5;
-            --gap: 20px;
+            --max-width: 600px; /* Mobile app width simulation */
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; }
         
-        body { background-color: var(--bg-color); color: var(--text-main); padding-bottom: 50px; }
-        a { text-decoration: none; color: inherit; }
+        body { 
+            background-color: var(--bg-body); 
+            color: var(--text-primary);
+            padding-top: 60px;    /* Space for Top Nav */
+            padding-bottom: 70px; /* Space for Bottom Nav */
+            min-height: 100vh;
+        }
 
-        /* --- NAVIGATION (LinkedIn Style) --- */
-        nav {
-            background: var(--card-bg);
+        /* --- 1. INSTAGRAM UI FRAMEWORK --- */
+        
+        /* Top Navigation (Insta Style) */
+        header {
+            background: var(--bg-card);
             border-bottom: 1px solid var(--border-color);
-            position: sticky;
+            position: fixed;
             top: 0;
+            width: 100%;
+            height: 54px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             z-index: 100;
-            padding: 0.8rem 2rem;
+        }
+
+        .header-content {
+            width: 100%;
+            max-width: var(--max-width);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 0 15px;
         }
 
-        .logo { font-weight: bold; font-size: 1.5rem; color: var(--accent-blue); letter-spacing: -1px; }
-        .nav-links span { margin-left: 20px; font-weight: 500; cursor: pointer; font-size: 0.9rem; color: var(--text-secondary); }
-        .nav-links span:hover { color: var(--text-main); }
+        .username { font-weight: 700; font-size: 1.1rem; }
+        .settings-icon { font-size: 1.2rem; cursor: pointer; }
 
-        /* --- CONTAINER --- */
-        .container { max-width: 935px; margin: 0 auto; padding: 30px 20px; }
-
-        /* --- PROFILE HEADER (Instagram Style) --- */
-        .profile-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 40px;
-            flex-wrap: wrap;
-        }
-
-        .profile-pic {
-            width: 150px;
-            height: 150px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #f09433 0%, #e6683c 25%, #dc2743 50%, #cc2366 75%, #bc1888 100%); /* Insta Gradient ring */
-            padding: 3px;
-            margin-right: 50px;
-            flex-shrink: 0;
-        }
-
-        .profile-pic img {
-            width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 2px solid white;
-            object-fit: cover;
-        }
-
-        .profile-info h1 { font-size: 1.8rem; margin-bottom: 10px; font-weight: 300; }
-        .profile-stats { display: flex; gap: 30px; margin-bottom: 15px; font-size: 1rem; }
-        .profile-stats strong { color: var(--text-main); }
-        
-        .bio { font-size: 1rem; line-height: 1.5; color: var(--text-main); white-space: pre-line; margin-bottom: 15px;}
-        
-        .connect-btn {
-            background-color: var(--accent-blue);
-            color: white;
-            padding: 5px 20px;
-            border-radius: 4px; /* LinkedIn rectangle */
-            font-weight: 600;
-            border: none;
-            cursor: pointer;
-        }
-
-        /* --- HIGHLIGHTS (Stories) --- */
-        .highlights {
-            display: flex;
-            gap: 20px;
-            overflow-x: auto;
-            padding-bottom: 20px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .highlight-item {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            cursor: pointer;
-            min-width: 70px;
-        }
-
-        .highlight-circle {
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            border: 1px solid var(--border-color);
-            background: #eee;
-            margin-bottom: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
-        }
-        .highlight-text { font-size: 0.75rem; font-weight: 600; }
-
-        /* --- CONTROLS (View Switcher) --- */
-        .controls {
-            display: flex;
-            justify-content: center;
-            gap: 50px;
-            margin-bottom: 20px;
-            border-bottom: 1px solid var(--border-color);
-        }
-
-        .control-btn {
-            background: none;
-            border: none;
-            padding: 15px;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-secondary);
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-
-        .control-btn.active {
-            color: var(--text-main);
-            border-top: 1px solid var(--text-main);
-            margin-top: -1px;
-        }
-
-        /* --- GALLERY LAYOUT LOGIC --- */
-        .gallery {
-            display: grid;
-            gap: var(--gap);
-            transition: all 0.3s ease;
-        }
-
-        /* GRID VIEW (Instagram) */
-        .gallery.grid-view {
-            grid-template-columns: repeat(3, 1fr);
-        }
-        
-        /* FEED VIEW (LinkedIn/Tumblr) */
-        .gallery.feed-view {
-            grid-template-columns: 1fr;
-            max-width: 600px;
+        /* Container */
+        main {
+            max-width: var(--max-width);
             margin: 0 auto;
+            background: var(--bg-card);
+            min-height: 100vh;
+            border-left: 1px solid var(--border-color);
+            border-right: 1px solid var(--border-color);
         }
 
-        /* --- POST CARD STYLING --- */
-        .post {
-            background: var(--card-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 3px;
-            overflow: hidden;
-            position: relative;
-        }
-
-        /* Grid View Specifics */
-        .grid-view .post {
-            aspect-ratio: 1 / 1;
-            border: none;
-        }
+        /* Profile Header */
+        .profile-section { padding: 20px 15px 0 15px; }
         
-        .grid-view .post-content, 
-        .grid-view .post-footer,
-        .grid-view .post-header {
-            display: none; /* Hide text in grid view */
+        .profile-top { display: flex; align-items: center; margin-bottom: 15px; }
+        
+        .avatar-container { margin-right: 20px; position: relative; }
+        .avatar { 
+            width: 80px; height: 80px; 
+            border-radius: 50%; 
+            border: 1px solid var(--border-color); 
+            padding: 2px;
+        }
+        .avatar img { width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+        .status-dot {
+            position: absolute; bottom: 5px; right: 5px;
+            width: 16px; height: 16px; background: #4caf50;
+            border: 2px solid white; border-radius: 50%;
         }
 
-        .grid-view .post-image {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            display: block;
-        }
+        .stats-container { display: flex; flex-grow: 1; justify-content: space-around; text-align: center; }
+        .stat-box { display: flex; flex-direction: column; }
+        .stat-num { font-weight: 700; font-size: 1.1rem; }
+        .stat-label { font-size: 0.8rem; color: var(--text-secondary); }
 
-        .grid-view .post:hover {
-            opacity: 0.7;
+        /* Bio Section (LinkedIn Content) */
+        .bio-section { padding: 0 15px; font-size: 0.95rem; line-height: 1.4; }
+        .bio-name { font-weight: 700; }
+        .bio-role { color: var(--text-secondary); margin-bottom: 5px; }
+        .bio-link { color: var(--linkedin-blue); font-weight: 600; text-decoration: none; }
+
+        /* Action Buttons (LinkedIn Function) */
+        .actions { padding: 15px; display: flex; gap: 10px; }
+        .btn {
+            flex: 1;
+            padding: 7px 0;
+            border-radius: 4px;
+            border: 1px solid var(--border-color);
+            background: transparent;
+            font-weight: 600;
+            font-size: 0.9rem;
             cursor: pointer;
+            text-align: center;
+        }
+        .btn-primary { background-color: var(--linkedin-blue); color: white; border: none; }
+
+        /* Story Highlights (Used for Skills/Endorsements) */
+        .skills-scroll {
+            display: flex;
+            overflow-x: auto;
+            padding: 0 15px 15px 15px;
+            gap: 15px;
+            border-bottom: 1px solid var(--border-color);
+            scrollbar-width: none; /* Hide scrollbar Firefox */
+        }
+        .skills-scroll::-webkit-scrollbar { display: none; } /* Hide scrollbar Chrome */
+
+        .skill-item { display: flex; flex-direction: column; align-items: center; min-width: 64px; cursor: pointer; }
+        .skill-ring {
+            width: 64px; height: 64px;
+            border-radius: 50%;
+            border: 1px solid var(--border-color);
+            padding: 2px;
+            margin-bottom: 5px;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.5rem; background: #f8f9fa;
+        }
+        .skill-name { font-size: 0.75rem; color: var(--text-primary); text-align: center; }
+
+        /* Content Tabs */
+        .tabs { display: flex; border-bottom: 1px solid var(--border-color); }
+        .tab { flex: 1; display: flex; justify-content: center; padding: 12px; cursor: pointer; color: var(--text-secondary); }
+        .tab.active { border-bottom: 1px solid var(--text-primary); color: var(--text-primary); margin-bottom: -1px; }
+
+        /* --- 2. TUMBLR/LINKEDIN CONTENT LOGIC --- */
+
+        .content-area { min-height: 300px; }
+
+        /* GRID VIEW (Insta) */
+        .grid-layout { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2px; }
+        .grid-item { aspect-ratio: 1/1; position: relative; background: #eee; cursor: pointer; overflow: hidden; }
+        .grid-item img { width: 100%; height: 100%; object-fit: cover; }
+        .grid-item .text-preview {
+            position: absolute; inset: 0; padding: 10px;
+            display: flex; align-items: center; justify-content: center;
+            text-align: center; font-size: 0.8rem; background: #36465d; color: white;
+            font-family: 'Courier New', monospace; /* Tumblr feel */
         }
 
-        /* Feed View Specifics */
-        .feed-view .post {
-            margin-bottom: 30px;
-            border-radius: 8px; /* Softer corners for feed */
+        /* FEED VIEW (Tumblr/LinkedIn Blog) */
+        .feed-layout { padding: 0; background: var(--bg-body); }
+        .feed-post { 
+            background: white; 
+            margin-bottom: 15px; 
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 10px;
+        }
+        .feed-header { padding: 10px 15px; display: flex; align-items: center; gap: 10px; }
+        .feed-avatar { width: 32px; height: 32px; border-radius: 50%; background: #ccc; }
+        .feed-meta strong { display: block; font-size: 0.9rem; }
+        .feed-meta span { font-size: 0.75rem; color: var(--text-secondary); }
+        
+        .post-body { padding: 0 15px 10px 15px; font-size: 0.95rem; line-height: 1.5; }
+        .post-body img { width: 100%; margin: 10px 0; border-radius: 4px; }
+        
+        /* Tumblr Specifics */
+        .quote-block {
+            border-left: 3px solid var(--text-primary);
+            padding-left: 15px;
+            font-style: italic;
+            font-size: 1.1rem;
+            margin: 10px 0;
+        }
+        .tag-cloud { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 10px; }
+        .tag { color: var(--text-secondary); font-size: 0.85rem; }
+        .tag::before { content: '#'; color: var(--text-secondary); }
+
+        .interactions { 
+            padding: 5px 15px; display: flex; justify-content: space-between; 
+            font-size: 1.2rem; color: var(--text-primary);
         }
 
-        .feed-view .post-image {
-            width: 100%;
-            height: auto;
-            max-height: 500px;
-            object-fit: cover;
+        /* Bottom Nav (Insta Style) */
+        .bottom-nav {
+            position: fixed; bottom: 0; width: 100%; height: 50px;
+            background: white; border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-around; align-items: center;
+            z-index: 100;
         }
+        .nav-item { font-size: 1.4rem; cursor: pointer; color: var(--text-primary); }
 
-        .post-header { padding: 10px 15px; display: flex; align-items: center; gap: 10px; }
-        .mini-avatar { width: 32px; height: 32px; border-radius: 50%; background: #ccc; }
-        .post-meta div { font-weight: 600; font-size: 0.9rem; }
-        .post-meta span { font-size: 0.75rem; color: var(--text-secondary); }
+        /* Helper for Grid/List Icons */
+        .icon { width: 24px; height: 24px; fill: currentColor; }
 
-        .post-content { padding: 15px; }
-        .post-title { font-weight: bold; margin-bottom: 5px; }
-        .post-desc { font-size: 0.95rem; line-height: 1.4; margin-bottom: 10px; }
-
-        /* Tumblr Style Tags */
-        .tags { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 10px; }
-        .tag { color: var(--tumblr-tag); font-size: 0.85rem; }
-        .tag:before { content: '#'; }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .profile-header { justify-content: center; text-align: center; }
-            .profile-pic { margin-right: 0; margin-bottom: 20px; width: 100px; height: 100px; }
-            .profile-stats { justify-content: center; }
-            .gallery.grid-view { grid-template-columns: repeat(3, 1fr); gap: 3px; }
-        }
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo">in.sta.blr</div>
-        <div class="nav-links">
-            <span>Home</span>
-            <span>Network</span>
-            <span>Jobs</span>
+    <header>
+        <div class="header-content">
+            <div class="username">alex_developer <span style="font-size: 0.8em; color: var(--linkedin-blue);">☑</span></div>
+            <div class="settings-icon">≡</div>
         </div>
-    </nav>
+    </header>
 
-    <div class="container">
-        
-        <section class="profile-header">
-            <div class="profile-pic">
-                <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Felix" alt="Profile">
-            </div>
-            <div class="profile-info">
-                <h1>Alex Developer <button class="connect-btn">Connect</button></h1>
-                <div class="profile-stats">
-                    <span><strong>42</strong> Posts</span>
-                    <span><strong>1.5k</strong> Connections</span>
-                    <span><strong>800</strong> Followers</span>
-                </div>
-                <div class="bio">
-                    Creative Technologist based in NYC. 
-                    Building bridges between design and code.
-                    Currently working on React & Three.js.
-                    <a href="#" style="color: #00376b; font-weight: 600;">alex.dev/portfolio</a>
+    <main>
+        <section class="profile-section">
+            <div class="profile-top">
+                <div class="avatar-container">
+                    <div class="avatar">
+                        <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" alt="Avatar">
+                    </div>
+                    <div class="status-dot"></div> </div>
+                <div class="stats-container">
+                    <div class="stat-box"><span class="stat-num">124</span><span class="stat-label">Posts</span></div>
+                    <div class="stat-box"><span class="stat-num">1.5k</span><span class="stat-label">Connections</span></div>
+                    <div class="stat-box"><span class="stat-num">500+</span><span class="stat-label">Endorsed</span></div>
                 </div>
             </div>
+            
+            <div class="bio-section">
+                <div class="bio-name">Alex Dev</div>
+                <div class="bio-role">Full Stack Engineer | Open Source Contributor</div>
+                <div class="bio-text">
+                    Merging logic with design. 
+                    Previously @TechCorp. 
+                    Writing about JS, Career growth, and minimal UI.
+                </div>
+                <a href="#" class="bio-link">github.com/alexdev</a>
+            </div>
+
+            <div class="actions">
+                <button class="btn btn-primary" onclick="alert('Connection Request Sent!')">Connect</button>
+                <button class="btn">Message</button>
+                <button class="btn">Resume</button>
+            </div>
         </section>
 
-        <section class="highlights">
-            <div class="highlight-item">
-                <div class="highlight-circle">⚛️</div>
-                <span class="highlight-text">React</span>
+        <section class="skills-scroll">
+            <div class="skill-item">
+                <div class="skill-ring">JS</div>
+                <span class="skill-name">JavaScript</span>
             </div>
-            <div class="highlight-item">
-                <div class="highlight-circle">🎨</div>
-                <span class="highlight-text">UI/UX</span>
+            <div class="skill-item">
+                <div class="skill-ring">⚛️</div>
+                <span class="skill-name">React</span>
             </div>
-            <div class="highlight-item">
-                <div class="highlight-circle">🐍</div>
-                <span class="highlight-text">Python</span>
+            <div class="skill-item">
+                <div class="skill-ring">🎨</div>
+                <span class="skill-name">Design</span>
             </div>
-            <div class="highlight-item">
-                <div class="highlight-circle">📝</div>
-                <span class="highlight-text">Blog</span>
+            <div class="skill-item">
+                <div class="skill-ring">✒️</div>
+                <span class="skill-name">Writing</span>
+            </div>
+            <div class="skill-item">
+                <div class="skill-ring">💼</div>
+                <span class="skill-name">Business</span>
             </div>
         </section>
 
-        <section class="controls">
-            <button class="control-btn active" id="btn-grid" onclick="switchView('grid')">
-                <svg aria-label="" fill="currentColor" height="12" viewBox="0 0 48 48" width="12"><path d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z"></path></svg>
-                POSTS
-            </button>
-            <button class="control-btn" id="btn-feed" onclick="switchView('feed')">
-                <svg aria-label="" fill="currentColor" height="12" viewBox="0 0 48 48" width="12"><path clip-rule="evenodd" d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h42v11h-42v-11zm0 14h42v11h-42v-11zm42 25h-42v-11h42v11z" fill-rule="evenodd"></path></svg>
-                FEED
-            </button>
-        </section>
+        <div class="tabs">
+            <div class="tab active" id="tab-grid" onclick="setMode('grid')">
+                <svg class="icon" viewBox="0 0 48 48"><path d="M45 1.5H3c-.8 0-1.5.7-1.5 1.5v42c0 .8.7 1.5 1.5 1.5h42c.8 0 1.5-.7 1.5-1.5V3c0-.8-.7-1.5-1.5-1.5zm-40.5 3h11v11h-11v-11zm0 14h11v11h-11v-11zm11 25h-11v-11h11v11zm14 0h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11zm14 28h-11v-11h11v11zm0-14h-11v-11h11v11zm0-14h-11v-11h11v11z"></path></svg>
+            </div>
+            <div class="tab" id="tab-feed" onclick="setMode('feed')">
+                <svg class="icon" viewBox="0 0 48 48"><path d="M47 31h-4c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h4c1.1 0 2-.9 2-2V33c0-1.1-.9-2-2-2zm-33-2h18v-2H14v2zm0 6h18v-2H14v2zm0 6h18v-2H14v2zm29 6h-2v-8h2v8zm-29-22h18v-2H14v2zm0-6h18v-2H14v2zm0-6h18V7H14v2zM5 45h4V3h-4v42z"></path></svg>
+            </div>
+        </div>
 
-        <div class="gallery grid-view" id="gallery">
+        <div class="content-area grid-layout" id="app-content">
             </div>
 
+    </main>
+
+    <div class="bottom-nav">
+        <div class="nav-item">🏠</div>
+        <div class="nav-item">🔍</div>
+        <div class="nav-item" style="font-size: 2rem;">⊕</div> <div class="nav-item">❤️</div>
+        <div class="nav-item"><div style="width:24px; height:24px; background: #333; border-radius: 50%;"></div></div>
     </div>
 
     <script>
-        // --- 1. MOCK DATA (Tumblr vibe: different content types) ---
+        // DATA: This is where we mix LinkedIn Content types with Tumblr Structure
         const posts = [
             {
-                type: 'image',
-                img: 'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=600&q=80',
-                title: 'Project Alpha',
-                desc: 'Designing the future of web interfaces. A clean approach to modular CSS architecture.',
-                tags: ['webdesign', 'css', 'frontend'],
-                date: '2d'
+                id: 1,
+                type: 'photo',
+                content: 'Launched the new dashboard today. Increased user retention by 15% using optimized load strategies.',
+                media: 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=500&q=80',
+                tags: ['product', 'analytics', 'growth'],
+                likes: 84
             },
             {
-                type: 'image',
-                img: 'https://images.unsplash.com/photo-1555099962-4199c345e5dd?auto=format&fit=crop&w=600&q=80',
-                title: 'Backend Logic',
-                desc: 'Refactoring the API response time by 40%. Sometimes the best visual is code.',
-                tags: ['backend', 'python', 'optimization'],
-                date: '4d'
+                id: 2,
+                type: 'quote',
+                content: 'First, solve the problem. Then, write the code.',
+                author: 'John Johnson',
+                tags: ['coding', 'philosophy', 'devlife'],
+                likes: 230
             },
             {
-                type: 'image',
-                img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=600&q=80',
-                title: 'Abstract UI',
-                desc: 'Exploration in gradients and glassmorphism. Is it usable? Maybe. Is it pretty? Yes.',
-                tags: ['art', 'ui', 'experiment'],
-                date: '1w'
+                id: 3,
+                type: 'text',
+                title: 'Why I switched to TypeScript',
+                content: 'It wasn\'t about the syntax. It was about the confidence in refactoring large scale applications. The ROI on setup time is paid back in debugging time.',
+                tags: ['typescript', 'javascript', 'opinion'],
+                likes: 45
             },
             {
-                type: 'image',
-                img: 'https://images.unsplash.com/photo-1517694712202-14dd9538aa97?auto=format&fit=crop&w=600&q=80',
-                title: 'Workspace Setup',
-                desc: 'New mechanical keyboard arrived. Productivity increased by exactly 0%, but satisfaction up 100%.',
-                tags: ['setup', 'developer', 'life'],
-                date: '1w'
+                id: 4,
+                type: 'photo',
+                content: 'Office view for the day. Remote work has changed the game for creative focus.',
+                media: 'https://images.unsplash.com/photo-1497215728101-856f4ea42174?auto=format&fit=crop&w=500&q=80',
+                tags: ['remotework', 'setup', 'minimalism'],
+                likes: 112
             },
             {
-                type: 'image',
-                img: 'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80',
-                title: 'Conference Talk',
-                desc: 'Spoke about accessibility in modern frameworks. Slides available in bio.',
-                tags: ['publicspeaking', 'a11y', 'community'],
-                date: '2w'
+                id: 5,
+                type: 'photo',
+                content: 'Attended the React Summit. Great networking with industry leaders.',
+                media: 'https://images.unsplash.com/photo-1544531586-fde5298cdd40?auto=format&fit=crop&w=500&q=80',
+                tags: ['conference', 'networking', 'learning'],
+                likes: 67
             },
             {
-                type: 'image',
-                img: 'https://images.unsplash.com/photo-1534972195531-d756b9bfa9f2?auto=format&fit=crop&w=600&q=80',
-                title: 'Design System',
-                desc: 'Building a consistent language for the team. Figma to React workflow.',
-                tags: ['figma', 'react', 'systems'],
-                date: '3w'
+                id: 6,
+                type: 'quote',
+                content: 'Design is not just what it looks like and feels like. Design is how it works.',
+                author: 'Steve Jobs',
+                tags: ['design', 'ux', 'inspiration'],
+                likes: 890
             }
         ];
 
-        const gallery = document.getElementById('gallery');
-        const btnGrid = document.getElementById('btn-grid');
-        const btnFeed = document.getElementById('btn-feed');
+        const container = document.getElementById('app-content');
+        const tabGrid = document.getElementById('tab-grid');
+        const tabFeed = document.getElementById('tab-feed');
 
-        // --- 2. RENDER FUNCTION ---
-        function renderPosts() {
-            gallery.innerHTML = posts.map(post => `
-                <div class="post">
-                    <div class="post-header">
-                        <div class="mini-avatar"></div>
-                        <div class="post-meta">
-                            <div>Alex Developer</div>
-                            <span>${post.date} • <i style="font-size:0.7em">Public</i></span>
-                        </div>
-                    </div>
-
-                    <img src="${post.img}" class="post-image" alt="${post.title}">
-                    
-                    <div class="post-content">
-                        <div class="post-title">${post.title}</div>
-                        <div class="post-desc">${post.desc}</div>
-                        <div class="tags">
-                            ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
-                        </div>
-                    </div>
-                </div>
-            `).join('');
+        // Function to render GRID (Instagram Style)
+        function renderGrid() {
+            container.className = 'content-area grid-layout';
+            container.innerHTML = posts.map(post => {
+                // If it's a photo, show photo. If text/quote, show styled text box.
+                if(post.type === 'photo') {
+                    return `<div class="grid-item"><img src="${post.media}" alt="post"></div>`;
+                } else {
+                    return `
+                        <div class="grid-item">
+                            <div class="text-preview">
+                                ${post.type === 'quote' ? '❝ ' + post.content.substring(0,30) + '... ❞' : '📄 ' + post.title}
+                            </div>
+                        </div>`;
+                }
+            }).join('');
+            
+            tabGrid.classList.add('active');
+            tabFeed.classList.remove('active');
         }
 
-        // --- 3. VIEW SWITCHER LOGIC ---
-        function switchView(view) {
-            if (view === 'grid') {
-                gallery.classList.add('grid-view');
-                gallery.classList.remove('feed-view');
-                btnGrid.classList.add('active');
-                btnFeed.classList.remove('active');
-            } else {
-                gallery.classList.add('feed-view');
-                gallery.classList.remove('grid-view');
-                btnFeed.classList.add('active');
-                btnGrid.classList.remove('active');
-            }
+        // Function to render FEED (Tumblr/LinkedIn Style)
+        function renderFeed() {
+            container.className = 'content-area feed-layout';
+            container.innerHTML = posts.map(post => {
+                let innerHTML = '';
+                
+                // Content Logic
+                if (post.type === 'photo') {
+                    innerHTML = `
+                        <p>${post.content}</p>
+                        <img src="${post.media}" alt="post image">
+                    `;
+                } else if (post.type === 'quote') {
+                    innerHTML = `
+                        <div class="quote-block">
+                            "${post.content}"
+                            <br><small>— ${post.author}</small>
+                        </div>
+                    `;
+                } else if (post.type === 'text') {
+                    innerHTML = `
+                        <h3 style="margin-bottom:5px;">${post.title}</h3>
+                        <p>${post.content}</p>
+                    `;
+                }
+
+                return `
+                <div class="feed-post">
+                    <div class="feed-header">
+                        <div class="feed-avatar">
+                             <img src="https://api.dicebear.com/7.x/avataaars/svg?seed=Alex" style="width:100%; border-radius:50%;">
+                        </div>
+                        <div class="feed-meta">
+                            <strong>alex_developer</strong>
+                            <span>${post.tags[0]} • Follow</span>
+                        </div>
+                    </div>
+                    
+                    <div class="post-body">
+                        ${innerHTML}
+                        <div class="tag-cloud">
+                            ${post.tags.map(t => `<span class="tag">${t}</span>`).join('')}
+                        </div>
+                    </div>
+
+                    <div class="interactions">
+                        <div style="display:flex; gap:15px;">
+                            <span>❤️</span>
+                            <span>💬</span>
+                            <span>✈️</span>
+                        </div>
+                        <span>🔖</span>
+                    </div>
+                    <div style="padding: 0 15px; font-weight:600; font-size: 0.9rem;">${post.likes} notes</div>
+                </div>
+                `;
+            }).join('');
+
+            tabFeed.classList.add('active');
+            tabGrid.classList.remove('active');
+        }
+
+        function setMode(mode) {
+            if(mode === 'grid') renderGrid();
+            else renderFeed();
         }
 
         // Initialize
-        renderPosts();
+        renderGrid();
 
     </script>
 </body>
